@@ -157,11 +157,14 @@ const CanvasDrawing = ({is_visible, onExtrude}) => {
     }, [points]);
 
     const handleMouseDown = (e: any) => {
+
+        console.log('touchstart event this is ', e, e.clientX)
+
         setDrawing(true);
         const rect = drawCanvasRef.current.getBoundingClientRect();
         const point = toClipSpace(
-            e.clientX - rect.left,
-            e.clientY - rect.top,
+            (e?.touches?.[0]?.clientX || e?.clientX) - rect.left,
+            (e?.touches?.[0]?.clientY || e?.clientY) - rect.top,
             rect.width,
             rect.height
         );
@@ -182,8 +185,8 @@ const CanvasDrawing = ({is_visible, onExtrude}) => {
         // console.log(e.clientY, rect);
 
         const point = toClipSpace(
-            e.clientX - rect.left,
-            e.clientY - rect.top,
+            (e?.touches?.[0]?.clientX || e?.clientX) - rect.left,
+            (e?.touches?.[0]?.clientY || e?.clientY) - rect.top,
             rect.width,
             rect.height
         );
