@@ -27,10 +27,23 @@ const ExtrudeDrawing = ({is_visible, onDrawNew}) => {
         }
 
         glRef.current = gl;
+        resizeCanvas();
         gl.clearColor(1, 1, 1, 1);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
     }, []);
+
+    const resizeCanvas = () => {
+        const canvas = extrudeCanvasRef.current;
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            glRef?.current?.viewport(0, 0, canvas.width, canvas.height);
+            glRef?.current?.clearColor(0.0, 0.0, 0.0, 1.0);
+            glRef?.current?.clear(glRef?.current?.COLOR_BUFFER_BIT);
+        }
+    };
+
 
 
     useEffect(() => {
@@ -126,8 +139,8 @@ const ExtrudeDrawing = ({is_visible, onDrawNew}) => {
 
                 <canvas
                     ref={extrudeCanvasRef}
-                    width={1200}
-                    height={800}
+                    width={200}
+                    height={200}
                     style={{touchAction: "none"}}
                 />
 

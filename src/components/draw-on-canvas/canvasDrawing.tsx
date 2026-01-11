@@ -78,6 +78,17 @@ const CanvasDrawing = ({is_visible, onExtrude}) => {
         return [(x / width) * 2 - 1, -((y / height) * 2 - 1)];
     };
 
+    const resizeCanvas = () => {
+        const canvas = drawCanvasRef.current;
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            glRef?.current?.viewport(0, 0, canvas.width, canvas.height);
+            glRef?.current?.clearColor(0.0, 0.0, 0.0, 1.0);
+            glRef?.current?.clear(glRef?.current?.COLOR_BUFFER_BIT);
+        }
+    };
+
     useEffect(() => {
         const canvas = drawCanvasRef.current;
         const gl: WebGL2RenderingContext = canvas.getContext("webgl");
@@ -88,6 +99,7 @@ const CanvasDrawing = ({is_visible, onExtrude}) => {
         }
 
         glRef.current = gl;
+        resizeCanvas()
 
         const vertexShader = createShader(
             gl,
@@ -199,13 +211,16 @@ const CanvasDrawing = ({is_visible, onExtrude}) => {
 
                 <canvas
                     ref={drawCanvasRef}
-                    width={1200}
-                    height={800}
+                    width={200}
+                    height={200}
                     style={{border: "1px solid black", touchAction: "none", width: '100%', height: '100%'}}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseUp}
+                    onTouchStart={handleMouseDown}
+                    onTouchMove={handleMouseMove}
+                    onTouchEnd={handleMouseUp}
                 />
             </section>
         </>

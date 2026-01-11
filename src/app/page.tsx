@@ -23,6 +23,9 @@ export default function Home() {
 
     const resizeCanvas = () => {
         const canvas = canvaRef.current;
+
+
+
         if (canvas) {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;

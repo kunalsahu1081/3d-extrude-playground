@@ -1,7 +1,7 @@
 .drawingBoardContainer {
         margin: auto;
         width: 100vw;
-        flex: 1 1;
+  height: calc(100vh - 100px);
         position: relative;
 }
 
@@ -13,4 +13,6 @@
         justify-content: center;
         display: flex;
         top: 30px;
+  padding: 0 30px;
+  flex-wrap: wrap;
 }
